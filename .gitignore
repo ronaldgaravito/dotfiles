@@ -1,0 +1,39 @@
+# Backups
+*.backup
+*.bak
+*.old
+cfg_backups/
+
+# Cache
+*.cache
+__pycache__/
+*.pyc
+
+# Logs
+*.log
+
+# Secrets/credentials
+.env
+*.key
+*.pem
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+
+# Temp files
+*.tmp
+*.temp
+
+# Binaries
+*.jar
+*.deb
+*.rpm
+*.AppImage

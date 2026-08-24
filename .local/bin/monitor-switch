@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+LAPTOP="eDP-1"
+TV="HDMI-A-1"
+
+MODE=$(printf "1. Extender (portatil + TV)\n2. Solo portatil (eDP-1)\n3. Solo TV (HDMI-A-1)\n4. Duplicar: portatil en la TV\n5. Duplicar: TV en el portatil\n" \
+  | rofi -dmenu -p "Modo de pantalla" -theme ~/.config/rofi/theme.rasi)
+
+[[ -z "$MODE" ]] && exit 0
+
+if [[ "$MODE" == *"portatil en la TV"* ]]; then
+    hyprctl keyword monitor "$LAPTOP,1920x1080@60.06,0x0,1.25" >/dev/null
+    hyprctl keyword monitor "$TV,1920x1080@60.0,0x0,1.25,mirror,$LAPTOP" >/dev/null
+elif [[ "$MODE" == *"TV en el portatil"* ]]; then
+    hyprctl keyword monitor "$TV,1920x1080@60.0,0x0,1.25" >/dev/null
+    hyprctl keyword monitor "$LAPTOP,1920x1080@60.06,0x0,1.25,mirror,$TV" >/dev/null
+elif [[ "$MODE" == *"Extender"* ]]; then
+    hyprctl keyword monitor "$LAPTOP,1920x1080@60.06,0x0,1.25" >/dev/null
+    hyprctl keyword monitor "$TV,1920x1080@60.0,1536x0,1.25" >/dev/null
+elif [[ "$MODE" == *"portatil"* ]]; then
+    hyprctl keyword monitor "$TV,disable" >/dev/null
+    hyprctl keyword monitor "$LAPTOP,1920x1080@60.06,0x0,1.25" >/dev/null
+elif [[ "$MODE" == *"Solo TV"* ]]; then
+    hyprctl keyword monitor "$LAPTOP,disable" >/dev/null
+    hyprctl keyword monitor "$TV,1920x1080@60.0,0x0,1.25" >/dev/null
+fi

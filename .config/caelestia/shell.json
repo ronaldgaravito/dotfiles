@@ -1,0 +1,20 @@
+{
+    "appearance": {
+        "transparency": {
+            "enabled": true
+        }
+    },
+    "launcher": {
+        "enabled": true,
+        "maxShown": 7,
+        "maxWallpapers": 9,
+        "showOnHover": false
+    },
+    "paths": {
+        "wallpaperDir": "/home/ronald/Pictures/Wallpapers"
+    },
+    "services": {
+        "smartScheme": true,
+        "useTwelveHourClock": true
+    }
+}

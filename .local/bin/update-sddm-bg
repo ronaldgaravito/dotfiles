@@ -1,0 +1,9 @@
+#!/bin/bash
+WALLPAPER="$(hyprctl hyprpaper listloaded 2>/dev/null | tail -1)"
+if [ -n "$WALLPAPER" ] && [ -f "$WALLPAPER" ]; then
+    convert "$WALLPAPER" -resize 1920x1080^ -gravity center -extent 1920x1080 /tmp/sddm-bg.png 2>/dev/null || cp "$WALLPAPER" /tmp/sddm-bg.png 2>/dev/null
+    sudo cp /tmp/sddm-bg.png /usr/share/sddm/themes/Corners/backgrounds/bg.png
+    echo "Fondo de SDDM actualizado"
+else
+    echo "No se pudo obtener el wallpaper actual"
+fi

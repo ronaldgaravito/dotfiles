@@ -1,0 +1,8 @@
+#!/bin/bash
+WALLPAPER_DIR="$HOME/Pictures/Wallpapers"
+selected=$(find "$WALLPAPER_DIR" -type f \( -iname '*.jpg' -o -iname '*.png' -o -iname '*.jpeg' -o -iname '*.webp' \) | fzf --preview='kitty +kitten icat --clear --transfer-mode file --place 90x40@0x0 {}' --preview-window='right:70%:nohidden' --bind 'left:preview-page-up,right:preview-page-down')
+
+if [ -n "$selected" ]; then
+    caelestia wallpaper -f "$selected"
+    ~/.local/share/bin/swwwallbash.sh "$selected" &
+fi

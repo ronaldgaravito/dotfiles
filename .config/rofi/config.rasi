@@ -1,0 +1,13 @@
+configuration {
+    modi: "drun,run,window";
+    show-icons: true;
+    font: "JetBrainsMono Nerd Font 12";
+    display-drun: "󰀻 Apps";
+    display-run: " Run";
+    display-window: " Windows";
+    drun-display-format: "{name}";
+    icon-theme: "Papirus";
+    terminal: "kitty";
+}
+
+@theme "~/.config/rofi/theme.rasi"
