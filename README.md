@@ -14,7 +14,7 @@ My Hyprland (CachyOS) configuration.
 ## Install
 
 ```bash
-git clone https://github.com/ronald/dotfiles.git ~/dotfiles
+git clone https://github.com/ronaldgaravito/dotfiles.git ~/dotfiles
 cd ~/dotfiles
 
 # Copy configs
