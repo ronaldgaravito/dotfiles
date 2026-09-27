@@ -1,0 +1,85 @@
+#!/usr/bin/env python3
+"""Sincroniza los bordes de Hyprland con el color principal que Caelestia
+elige para el wallpaper actual (scheme.json -> colours.primary)."""
+import json
+import os
+import re
+import subprocess
+import sys
+
+SCHEME = os.path.expanduser("~/.local/state/caelestia/scheme.json")
+COLORS = os.path.expanduser("~/.config/hypr/themes/colors.conf")
+
+
+def darken(hexcolor: str, factor: float = 0.45) -> str:
+    r, g, b = (int(hexcolor[i:i + 2], 16) for i in (0, 2, 4))
+    return f"{int(r * factor):02X}{int(g * factor):02X}{int(b * factor):02X}"
+
+
+def main() -> int:
+    try:
+        with open(SCHEME) as f:
+            primary = json.load(f)["colours"]["primary"].lstrip("#").upper()
+    except (OSError, KeyError, ValueError) as e:
+        print(f"sync-border: no se pudo leer el scheme: {e}", file=sys.stderr)
+        return 1
+
+    if not re.fullmatch(r"[0-9A-F]{6}", primary):
+        print(f"sync-border: color inválido: {primary}", file=sys.stderr)
+        return 1
+
+    second = darken(primary)
+
+    try:
+        with open(COLORS) as f:
+            lines = f.readlines()
+    except OSError as e:
+        print(f"sync-border: no se pudo leer colors.conf: {e}", file=sys.stderr)
+        return 1
+
+    gradient = f"rgba({primary}ff) rgba({second}ff) 45deg"
+    inside_group = False
+    changed = False
+
+    for i, line in enumerate(lines):
+        stripped = line.strip()
+        if stripped.endswith("{"):
+            inside_group = stripped.startswith("group")
+        elif stripped == "}":
+            inside_group = False
+
+        if "=" not in stripped:
+            continue
+        key, _, value = stripped.partition("=")
+        key = key.strip()
+        value = value.strip()
+
+        # conservar la opacidad original de cada borde
+        alpha = "ff"
+        first_rgba = re.search(r"rgba\([0-9A-Fa-f]{6}([0-9A-Fa-f]{2})\)", value)
+        if first_rgba:
+            alpha = first_rgba.group(1).upper()
+
+        if key in ("col.active_border", "col.active_border_end"):
+            lines[i] = f"    {key} = {gradient}\n"
+            changed = True
+        elif inside_group and key in ("col.border_active", "col.border_inactive"):
+            lines[i] = (
+                f"    {key} = rgba({primary}{alpha}) rgba({second}{alpha}) 45deg\n"
+            )
+            changed = True
+
+    if not changed:
+        print("sync-border: no se encontraron bordes que sincronizar")
+        return 0
+
+    with open(COLORS, "w") as f:
+        f.writelines(lines)
+
+    subprocess.run(["hyprctl", "reload"], capture_output=True)
+    print(f"sync-border: bordes -> {primary} / {second}")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

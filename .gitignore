@@ -37,3 +37,14 @@ Thumbs.db
 *.deb
 *.rpm
 *.AppImage
+
+# Archivos generados por wallbash (se reescriben en cada cambio de wallpaper).
+# La copia base vive en defaults/ y install.sh la restaura si falta.
+.config/hypr/themes/colors.conf
+.config/hypr/themes/theme.conf
+.config/kitty/theme.conf
+.config/rofi/theme.rasi
+.config/waybar/theme.css
+.config/qt5ct/colors.conf
+.config/Kvantum/wallbash/
+.config/cava/Wall-Dcol

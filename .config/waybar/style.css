@@ -1,174 +1,179 @@
-@define-color rosewater #f5e0dc;
-@define-color flamingo #f2cdcd;
-@define-color pink #f5c2e7;
-@define-color mauve #cba6f7;
-@define-color red #f38ba8;
-@define-color maroon #eba0ac;
-@define-color peach #fab387;
-@define-color yellow #f9e2af;
-@define-color green #a6e3a1;
-@define-color teal #94e2d5;
-@define-color sky #89dceb;
-@define-color sapphire #74c7ec;
-@define-color blue #89b4fa;
-@define-color lavender #b4befe;
-@define-color text #cdd6f4;
-@define-color subtext1 #bac2de;
-@define-color subtext0 #a6adc8;
-@define-color overlay2 #9399b2;
-@define-color overlay1 #7f849c;
-@define-color overlay0 #6c7086;
-@define-color surface2 #585b70;
-@define-color surface1 #45475a;
-@define-color surface0 #313244;
-@define-color base #1e1e2e;
-@define-color mantle #181825;
-@define-color crust #11111b;
-
 * {
-    font-family: "JetBrainsMono Nerd Font", "Font Awesome 6 Free", sans-serif;
-    font-size: 14px;
-    min-height: 0;
     border: none;
-    border-radius: 0;
+    border-radius: 0px;
+    font-family: "JetBrainsMono Nerd Font";
+    font-weight: bold;
+    font-size: 10px;
+    min-height: 10px;
 }
+
+@import "theme.css";
 
 window#waybar {
-    background: transparent;
-    color: @text;
+    background: @bar-bg;
 }
 
-window#waybar > box {
-    background: rgba(24, 24, 37, 0.7);
-    padding: 0 8px;
-    margin: 4px 6px;
-    border-radius: 16px;
-}
-
-#custom-logo {
-    color: @mauve;
-    padding: 0 10px 0 4px;
-    font-size: 18px;
-}
-
-#workspaces {
-    margin: 4px 0;
-    padding: 0 4px;
+tooltip {
+    background: @main-bg;
+    color: @main-fg;
+    border-radius: 7px;
+    border-width: 0px;
 }
 
 #workspaces button {
-    color: @surface2;
-    padding: 0 5px;
-    margin: 0 1px;
-    font-size: 12px;
-    transition: all 0.15s ease;
+    box-shadow: none;
+	text-shadow: none;
+    padding: 0px;
+    border-radius: 9px;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    margin-left: 0px;
+    padding-left: 3px;
+    padding-right: 3px;
+    margin-right: 0px;
+    color: @main-fg;
+    animation: ws_normal 20s ease-in-out 1;
 }
 
 #workspaces button.active {
-    color: @text;
-    font-size: 16px;
-}
-
-#workspaces button.occupied {
-    color: @overlay0;
+    background: @wb-act-bg;
+    color: @wb-act-fg;
+    margin-left: 3px;
+    padding-left: 12px;
+    padding-right: 12px;
+    margin-right: 3px;
+    animation: ws_active 20s ease-in-out 1;
+    transition: all 0.4s cubic-bezier(.55,-0.68,.48,1.682);
 }
 
 #workspaces button:hover {
-    color: @lavender;
+    background: @wb-hvr-bg;
+    color: @wb-hvr-fg;
+    animation: ws_hover 20s ease-in-out 1;
+    transition: all 0.3s cubic-bezier(.55,-0.68,.48,1.682);
 }
 
-#workspaces button.urgent {
-    color: @red;
+#taskbar button {
+    box-shadow: none;
+	text-shadow: none;
+    padding: 0px;
+    border-radius: 9px;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    margin-left: 0px;
+    padding-left: 3px;
+    padding-right: 3px;
+    margin-right: 0px;
+    color: @wb-color;
+    animation: tb_normal 20s ease-in-out 1;
 }
 
-#window {
-    color: @overlay0;
-    padding: 0 14px;
-    font-size: 13px;
-    border-left: 1px solid @surface0;
-    margin: 5px 0;
+#taskbar button.active {
+    background: @wb-act-bg;
+    color: @wb-act-color;
+    margin-left: 3px;
+    padding-left: 12px;
+    padding-right: 12px;
+    margin-right: 3px;
+    animation: tb_active 20s ease-in-out 1;
+    transition: all 0.4s cubic-bezier(.55,-0.68,.48,1.682);
 }
 
-#clock {
-    color: @text;
-    font-weight: 600;
-    padding: 0 18px;
-    font-size: 14px;
+#taskbar button:hover {
+    background: @wb-hvr-bg;
+    color: @wb-hvr-color;
+    animation: tb_hover 20s ease-in-out 1;
+    transition: all 0.3s cubic-bezier(.55,-0.68,.48,1.682);
 }
 
-#network {
-    color: @sapphire;
-    padding: 0 8px;
-    font-size: 16px;
+#tray menu * {
+    min-height: 16px
 }
 
-#network.disconnected {
-    color: @overlay0;
+#tray menu separator {
+    min-height: 10px
 }
 
-#bluetooth {
-    color: @blue;
-    padding: 0 8px;
-    font-size: 16px;
+#backlight,
+#battery,
+#bluetooth,
+#custom-cava,
+#custom-cliphist,
+#clock,
+#custom-cpuinfo,
+#cpu,
+#custom-github_hyprdots,
+#custom-gpuinfo,
+#idle_inhibitor,
+#custom-keybindhint,
+#language,
+#memory,
+#mpris,
+#network,
+#custom-notifications,
+#custom-power,
+#privacy,
+#pulseaudio,
+#custom-spotify,
+#taskbar,
+#custom-theme,
+#tray,
+#custom-updates,
+#custom-wallchange,
+#custom-wbar,
+#window,
+#workspaces,
+#custom-l_end,
+#custom-r_end,
+#custom-sl_end,
+#custom-sr_end,
+#custom-rl_end,
+#custom-rr_end {
+    color: @main-fg;
+    background: @main-bg;
+    opacity: 1;
+    margin: 4px 0px 4px 0px;
+    padding-left: 4px;
+    padding-right: 4px;
 }
 
-#bluetooth.off {
-    color: @overlay0;
+#workspaces,
+#taskbar {
+    padding: 0px;
 }
 
-#pulseaudio {
-    color: @maroon;
-    padding: 0 8px;
-    font-size: 16px;
+#custom-r_end {
+    border-radius: 0px 21px 21px 0px;
+    margin-right: 9px;
+    padding-right: 3px;
 }
 
-#pulseaudio.muted {
-    color: @overlay0;
+#custom-l_end {
+    border-radius: 21px 0px 0px 21px;
+    margin-left: 9px;
+    padding-left: 3px;
 }
 
-#backlight {
-    color: @yellow;
-    padding: 0 8px;
-    font-size: 16px;
+#custom-sr_end {
+    border-radius: 0px;
+    margin-right: 9px;
+    padding-right: 3px;
 }
 
-#battery {
-    color: @green;
-    padding: 0 8px;
-    font-size: 16px;
+#custom-sl_end {
+    border-radius: 0px;
+    margin-left: 9px;
+    padding-left: 3px;
 }
 
-#battery.charging {
-    color: @teal;
+#custom-rr_end {
+    border-radius: 0px 7px 7px 0px;
+    margin-right: 9px;
+    padding-right: 3px;
 }
 
-#battery.warning:not(.charging) {
-    color: @yellow;
-}
-
-#battery.critical:not(.charging) {
-    color: @red;
-}
-
-#custom-power {
-    color: @overlay0;
-    padding: 0 4px 0 10px;
-    font-size: 18px;
-    transition: all 0.2s ease;
-}
-
-#custom-power:hover {
-    color: @red;
-}
-
-#tray {
-    padding: 0 6px;
-}
-
-#tray > .passive {
-    -gtk-icon-effect: dim;
-}
-
-#tray > .needs-attention {
-    -gtk-icon-effect: highlight;
+#custom-rl_end {
+    border-radius: 7px 0px 0px 7px;
+    margin-left: 9px;
+    padding-left: 3px;
 }
