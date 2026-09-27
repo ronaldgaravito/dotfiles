@@ -39,4 +39,3 @@ done < <(find "$DOTFILES_DIR/defaults" -type f -print0)
 
 echo ""
 echo "Done! Reload Hyprland with: hyprctl reload"
-echo "Or press Super+R"
