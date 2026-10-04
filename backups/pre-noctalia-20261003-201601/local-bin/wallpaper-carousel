@@ -1,6 +1,6 @@
 #!/bin/bash
 # Cambia el wallpaper y sincroniza TODOS los colores del sistema:
-#   1. Noctalia (shell, barra, launcher) -> paleta Material You del wallpaper
+#   1. Caelestia (shell, barra, launcher) -> scheme dynamic (Material You)
 #   2. Hyprland / GTK / Qt / Rofi / Discord... -> wallbash
 WALLPAPER_DIR="$HOME/Pictures/Wallpapers"
 HYDE_THEME_DIR="$HOME/.config/hyde/themes/$(sed -n 's/^hydeTheme="\(.*\)"/\1/p' "$HOME/.config/hyde/hyde.conf")"
@@ -12,12 +12,9 @@ selected=$(find "$WALLPAPER_DIR" -type f \( -iname '*.jpg' -o -iname '*.png' -o 
 
 [ -z "$selected" ] && exit 0
 
-# 1. Noctalia: wallpaper + paleta dynamic desde la imagen, y templates de otras apps
-if command -v noctalia >/dev/null 2>&1; then
-  noctalia msg wallpaper-set "$selected" >/dev/null 2>&1
-  noctalia msg color-scheme-set wallpaper m3-tonal-spot >/dev/null 2>&1
-  noctalia msg templates-apply >/dev/null 2>&1
-fi
+# 1. Caelestia: pone el wallpaper, genera thumbnail y recolorea el shell
+caelestia wallpaper -f "$selected" -n 2>/dev/null
+caelestia scheme set -n dynamic -m dark -v content 2>/dev/null
 
 # 2. symlink del tema hyde
 [ -d "$HYDE_THEME_DIR" ] && ln -sf "$selected" "$HYDE_THEME_DIR/wall.set"
@@ -25,5 +22,5 @@ fi
 # 3. Hyprland / GTK / Qt / Rofi / Discord / Spotify
 "$HOME/.local/share/bin/swwwallbash.sh" "$selected" >/dev/null 2>&1
 
-# 4. bordes de Hyprland con el color elegido
+# 4. bordes de Hyprland con el color que eligió Caelestia
 "$HOME/.local/bin/sync-border"

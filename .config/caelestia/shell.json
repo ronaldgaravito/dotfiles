@@ -4,11 +4,74 @@
             "enabled": true
         }
     },
+    "bar": {
+        "clock": {
+            "background": true,
+            "showDate": false,
+            "showIcon": false
+        },
+        "dragThreshold": 20,
+        "popouts": {
+            "tray": true
+        },
+        "statusIcons": [
+            {
+                "enabled": true,
+                "id": "lockStatus"
+            },
+            {
+                "enabled": false,
+                "id": "audio"
+            },
+            {
+                "enabled": false,
+                "id": "microphone"
+            },
+            {
+                "enabled": false,
+                "id": "kbLayout"
+            },
+            {
+                "enabled": true,
+                "id": "network"
+            },
+            {
+                "enabled": true,
+                "id": "bluetooth"
+            },
+            {
+                "enabled": true,
+                "id": "battery"
+            }
+        ],
+        "tray": {
+            "background": false,
+            "compact": false,
+            "recolour": false
+        },
+        "workspaces": {
+            "activeTrail": false,
+            "maxWindowIcons": 5,
+            "occupiedBg": true,
+            "perMonitorWorkspaces": true,
+            "showWindows": true,
+            "shown": 5
+        }
+    },
+    "border": {
+        "rounding": 0,
+        "smoothing": 0,
+        "thickness": 2
+    },
     "launcher": {
         "enabled": true,
         "maxShown": 7,
         "maxWallpapers": 9,
-        "showOnHover": false
+        "showOnHover": false,
+        "useFuzzy": {
+            "apps": false,
+            "schemes": false
+        }
     },
     "paths": {
         "wallpaperDir": "/home/ronald/Pictures/Wallpapers"
@@ -16,5 +79,15 @@
     "services": {
         "smartScheme": true,
         "useTwelveHourClock": true
+    },
+    "sidebar": {
+        "dragThreshold": 80
+    },
+    "utilities": {
+        "vpn": {
+            "provider": [
+            ],
+            "selectedProvider": ""
+        }
     }
 }

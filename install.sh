@@ -37,5 +37,16 @@ while IFS= read -r -d '' base; do
     fi
 done < <(find "$DOTFILES_DIR/defaults" -type f -print0)
 
+# Noctalia keeps its config in ~/.local/state, not ~/.config, so install.sh
+# would not pick it up. Restore it if missing.
+echo "Restoring noctalia settings..."
+NOCTALIA_SRC="$DOTFILES_DIR/.config/noctalia/settings.toml"
+NOCTALIA_DST="$HOME/.local/state/noctalia/settings.toml"
+if [ -f "$NOCTALIA_SRC" ] && [ ! -f "$NOCTALIA_DST" ]; then
+    mkdir -p "$(dirname "$NOCTALIA_DST")"
+    cp "$NOCTALIA_SRC" "$NOCTALIA_DST"
+    echo "  + .local/state/noctalia/settings.toml"
+fi
+
 echo ""
 echo "Done! Reload Hyprland with: hyprctl reload"

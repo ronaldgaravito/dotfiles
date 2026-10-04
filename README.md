@@ -4,12 +4,12 @@ My Hyprland (CachyOS) configuration.
 
 ## Components
 
-- **Compositor**: Hyprland + Caelestia Shell
+- **Compositor**: Hyprland + Noctalia Shell
 - **Terminal**: Kitty
 - **Shell**: Fish
 - **Launcher**: Rofi
-- **Notifications**: Caelestia Shell (dunst backup)
-- **Bar**: Caelestia Shell (waybar backup)
+- **Notifications**: Noctalia Shell (dunst backup)
+- **Bar**: Noctalia Shell (waybar backup)
 
 ## Install
 
@@ -30,7 +30,8 @@ hyprctl reload
 ```
 .config/
 ├── hypr/           # Hyprland config
-├── caelestia/      # Caelestia shell config
+├── noctalia/       # Noctalia shell config (shell actual)
+├── caelestia/      # Caelestia shell config (fallback, ya no se usa)
 ├── kitty/          # Terminal config
 ├── fish/           # Fish shell config
 ├── rofi/           # Launcher config
