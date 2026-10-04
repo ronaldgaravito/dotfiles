@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# Ver comandos mas usados de noctalia
+case "$1" in
+  list|--list|-l)
+    noctalia msg --help 2>&1 | grep "^  [a-z]" | awk '{print $1}'
+    ;;
+  search|--search|-s)
+    shift
+    noctalia msg --help 2>&1 | grep -i "$*"
+    ;;
+  *)
+    echo "Uso: noctalia-commands {list|search <palabra>}"
+    echo "Ej: noctalia-commands search wallpaper"
+    echo "Ej: noctalia-commands list | wc -l"
+    ;;
+esac
