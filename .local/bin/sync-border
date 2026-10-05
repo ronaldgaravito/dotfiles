@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
-"""Sincroniza los bordes de Hyprland con el color principal que Noctalia
-genera del wallpaper actual (noctalia theme -> primary)."""
+"""Sincroniza los bordes de Hyprland con el color principal que Caelestia
+elige para el wallpaper actual (scheme.json -> colours.primary)."""
 import json
 import os
 import re
 import subprocess
 import sys
 
+SCHEME = os.path.expanduser("~/.local/state/caelestia/scheme.json")
 COLORS = os.path.expanduser("~/.config/hypr/themes/colors.conf")
 
 
@@ -15,31 +16,12 @@ def darken(hexcolor: str, factor: float = 0.45) -> str:
     return f"{int(r * factor):02X}{int(g * factor):02X}{int(b * factor):02X}"
 
 
-def wallpaper_path() -> str | None:
-    try:
-        out = subprocess.run(
-            ["noctalia", "msg", "wallpaper-get"],
-            capture_output=True, text=True, timeout=10,
-        ).stdout.strip()
-    except (OSError, subprocess.SubprocessError):
-        return None
-    return out if out.startswith("/") else None
-
-
 def main() -> int:
-    img = wallpaper_path()
-    if not img:
-        print("sync-border: no se pudo obtener el wallpaper de noctalia", file=sys.stderr)
-        return 1
-
     try:
-        out = subprocess.run(
-            ["noctalia", "theme", img, "--dark"],
-            capture_output=True, text=True, timeout=30,
-        ).stdout
-        primary = json.loads(out)["primary"].lstrip("#").upper()
-    except (OSError, subprocess.SubprocessError, ValueError, KeyError) as e:
-        print(f"sync-border: no se pudo generar la paleta: {e}", file=sys.stderr)
+        with open(SCHEME) as f:
+            primary = json.load(f)["colours"]["primary"].lstrip("#").upper()
+    except (OSError, KeyError, ValueError) as e:
+        print(f"sync-border: no se pudo leer el scheme: {e}", file=sys.stderr)
         return 1
 
     if not re.fullmatch(r"[0-9A-F]{6}", primary):
