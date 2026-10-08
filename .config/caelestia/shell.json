@@ -5,8 +5,6 @@
         }
     },
     "bar": {
-        "persistent": false,
-        "showOnHover": true,
         "activeWindow": {
             "compact": true,
             "inverted": true
