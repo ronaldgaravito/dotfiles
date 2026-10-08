@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# Sincroniza los bordes de Hyprland cada vez que Caelestia cambia
+# el scheme del wallpaper (se dispara aunque cambies desde su UI).
+SCHEME="$HOME/.local/state/caelestia/scheme.json"
+last=""
+while true; do
+    if [ -f "$SCHEME" ]; then
+        m=$(stat -c %Y "$SCHEME" 2>/dev/null)
+        if [ -n "$m" ] && [ "$m" != "$last" ]; then
+            if [ -n "$last" ]; then
+                "$HOME/.local/bin/sync-border" >/dev/null 2>&1
+            fi
+            last="$m"
+        fi
+    fi
+    sleep 1
+done
