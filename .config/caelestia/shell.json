@@ -5,6 +5,12 @@
         }
     },
     "bar": {
+        "persistent": false,
+        "showOnHover": true,
+        "activeWindow": {
+            "compact": true,
+            "inverted": true
+        },
         "clock": {
             "background": true,
             "showDate": false,
@@ -13,6 +19,11 @@
         "dragThreshold": 20,
         "popouts": {
             "tray": true
+        },
+        "scrollActions": {
+            "brightness": true,
+            "volume": true,
+            "workspaces": true
         },
         "statusIcons": [
             {
@@ -46,7 +57,7 @@
         ],
         "tray": {
             "background": false,
-            "compact": false,
+            "compact": true,
             "recolour": false
         },
         "workspaces": {
@@ -63,20 +74,26 @@
         "smoothing": 0,
         "thickness": 2
     },
+    "general": {
+        "language": ""
+    },
     "launcher": {
+        "actionPrefix": "*",
         "enabled": true,
         "maxShown": 7,
         "maxWallpapers": 9,
         "showOnHover": false,
         "useFuzzy": {
             "apps": false,
-            "schemes": false
+            "schemes": false,
+            "wallpapers": false
         }
     },
     "paths": {
         "wallpaperDir": "/home/ronald/Pictures/Wallpapers"
     },
     "services": {
+        "dataUnits": "Decimal",
         "smartScheme": true,
         "useTwelveHourClock": true
     },
@@ -85,8 +102,7 @@
     },
     "utilities": {
         "vpn": {
-            "provider": [
-            ],
+            "provider": [],
             "selectedProvider": ""
         }
     }
