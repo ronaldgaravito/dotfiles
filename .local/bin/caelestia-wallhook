@@ -1,0 +1,28 @@
+#!/bin/bash
+# postHook de Caelestia: corre en cada cambio de wallpaper (launcher, nexus, CLI).
+# Recolorea todo el sistema con el nuevo wallpaper:
+#   1. symlink del tema hyde (wall.set)
+#   2. wallbash -> Hyprland / GTK / Qt / Rofi / Discord / Spotify
+#   3. bordes de Hyprland con el primary del scheme dinámico
+
+wall="${WALLPAPER_PATH:-}"
+if [ -z "$wall" ] || [ ! -f "$wall" ]; then
+    exit 0
+fi
+
+hyde_conf="$HOME/.config/hyde/hyde.conf"
+theme=$(sed -n 's/^hydeTheme="\(.*\)"/\1/p' "$hyde_conf" 2>/dev/null)
+hyde_dir="$HOME/.config/hyde/themes/$theme"
+if [ -n "$theme" ] && [ -d "$hyde_dir" ]; then
+    ln -sf "$wall" "$hyde_dir/wall.set"
+fi
+
+if [ -x "$HOME/.local/share/bin/swwwallbash.sh" ]; then
+    "$HOME/.local/share/bin/swwwallbash.sh" "$wall" >/dev/null 2>&1
+fi
+
+if [ -x "$HOME/.local/bin/sync-border" ]; then
+    "$HOME/.local/bin/sync-border" >/dev/null 2>&1
+fi
+
+exit 0

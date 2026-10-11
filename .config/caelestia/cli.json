@@ -1,0 +1,5 @@
+{
+    "wallpaper": {
+        "postHook": "/home/ronald/.local/bin/caelestia-wallhook"
+    }
+}

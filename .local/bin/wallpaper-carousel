@@ -1,9 +1,7 @@
 #!/bin/bash
-# Cambia el wallpaper y sincroniza TODOS los colores del sistema:
-#   1. Caelestia (shell, barra, launcher) -> scheme dynamic (Material You)
-#   2. Hyprland / GTK / Qt / Rofi / Discord... -> wallbash
+# Cambia el wallpaper con Caelestia. El scheme dynamic + el postHook
+# (caelestia-wallhook) se encargan de recolorear TODO el sistema solo.
 WALLPAPER_DIR="$HOME/Pictures/Wallpapers"
-HYDE_THEME_DIR="$HOME/.config/hyde/themes/$(sed -n 's/^hydeTheme="\(.*\)"/\1/p' "$HOME/.config/hyde/hyde.conf")"
 
 selected=$(find "$WALLPAPER_DIR" -type f \( -iname '*.jpg' -o -iname '*.png' -o -iname '*.jpeg' -o -iname '*.webp' \) \
   | fzf --preview='kitty +kitten icat --clear --transfer-mode file --place 90x40@0x0 {}' \
@@ -12,15 +10,4 @@ selected=$(find "$WALLPAPER_DIR" -type f \( -iname '*.jpg' -o -iname '*.png' -o 
 
 [ -z "$selected" ] && exit 0
 
-# 1. Caelestia: pone el wallpaper, genera thumbnail y recolorea el shell
-caelestia wallpaper -f "$selected" -n 2>/dev/null
-caelestia scheme set -n dynamic -m dark -v content 2>/dev/null
-
-# 2. symlink del tema hyde
-[ -d "$HYDE_THEME_DIR" ] && ln -sf "$selected" "$HYDE_THEME_DIR/wall.set"
-
-# 3. Hyprland / GTK / Qt / Rofi / Discord / Spotify
-"$HOME/.local/share/bin/swwwallbash.sh" "$selected" >/dev/null 2>&1
-
-# 4. bordes de Hyprland con el color que eligió Caelestia
-"$HOME/.local/bin/sync-border"
+caelestia wallpaper -f "$selected" -n

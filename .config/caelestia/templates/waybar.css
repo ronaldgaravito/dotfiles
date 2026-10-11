@@ -1,0 +1,10 @@
+@define-color text #{{ onSurface.hex }};
+@define-color surface0 #{{ surfaceContainer.hex }};
+@define-color surface2 #{{ surfaceContainerHighest.hex }};
+@define-color overlay0 #{{ onSurfaceVariant.hex }};
+@define-color lavender #{{ primary.hex }};
+@define-color yellow #{{ secondary.hex }};
+@define-color sky #{{ tertiary.hex }};
+@define-color red #{{ error.hex }};
+@define-color base #{{ surface.hex }};
+@define-color mantle #{{ surfaceContainerLow.hex }};
